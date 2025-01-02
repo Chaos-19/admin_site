@@ -1,0 +1,15 @@
+<!-- filepath: /D:/desktop/pro_ecommerce/e_commerce_admin/seller/templates/seller/register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Seller</title>
+</head>
+<body>
+    <h2>Register as a Seller</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
