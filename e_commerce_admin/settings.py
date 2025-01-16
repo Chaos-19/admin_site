@@ -12,11 +12,33 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import logging
 
 import firebase_admin
 from firebase_admin import credentials
 
 from decouple import config
+
+
+import cloudinary.uploader
+import cloudinary
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+# Configuration       
+cloudinary.config( 
+    cloud_name = "do4pudvmw", 
+    api_key = "889397845314732", 
+    api_secret = "Drhr7J2DZOZplpxsjm6fNOVOvmg", # Click 'View API Keys' above to copy your API secret
+    secure=True
+)
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +51,9 @@ FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, config('FIREBASE_CREDENTIALS'))
 
 cred = credentials.Certificate(FIREBASE_CREDENTIALS)
 firebase_admin.initialize_app(cred)
+
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -63,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   #'seller.firebase_middleware.FirebaseAdminMiddleware',  
 ]
 
 ROOT_URLCONF = 'e_commerce_admin.urls'
@@ -137,3 +163,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+'''
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+'''

@@ -1,15 +1,40 @@
-<!-- filepath: /D:/desktop/pro_ecommerce/e_commerce_admin/seller/templates/seller/register.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register Seller</title>
-</head>
-<body>
-    <h2>Register as a Seller</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+{% extends "_base.html" %} {% block content %}
+
+<h2>Register as a Seller</h2>
+
+<form
+  method="post"
+  action="{% url 'register_seller' %}"
+  class="max-w-md mx-auto"
+>
+  {% csrf_token %}
+
+  <div class="relative z-0 w-full mb-5 group">
+    {{ form.username.label_tag }} {{ form.username }}
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    {{ form.email.label_tag }} {{ form.email }}
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    {{ form.password.label_tag }} {{ form.password }}
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    {{ form.store_name.label_tag }} {{ form.store_name }}
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    {{ form.contact_info.label_tag }} {{ form.contact_info }}
+  </div>
+
+  <button
+    type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+  >
+    Register
+  </button>
+</form>
+
+{% endblock content %}

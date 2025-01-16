@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group, User
 from .models import Product, Seller
 from .forms import ProductForm, SellerRegistrationForm
 from django.contrib.auth.decorators import login_required
+from .firebase_service import add_seller_to_firestore, add_product_to_firestore
 
 @login_required
 def add_product(request):
@@ -12,6 +13,8 @@ def add_product(request):
             product = form.save(commit=False)
             product.seller = Seller.objects.get(user=request.user)
             product.save()
+            # Add product to Firebase
+            add_product_to_firestore(product)
             return redirect('seller_dashboard')
     else:
         form = ProductForm()
@@ -38,6 +41,8 @@ def register_seller(request):
             # Grant staff permissions
             user.is_staff = True
             user.save()
+            # Add seller to Firebase
+            add_seller_to_firestore(seller)
             # Redirect to admin site login page
             return redirect('/seller-admin/login/')
     else:
